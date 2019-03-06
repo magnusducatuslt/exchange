@@ -17,9 +17,15 @@ module.exports = function makeExchange(currency) {
   const N = Math.floor(cur / 5) > 0 ? Math.floor(cur / 5) : 0
   const P = cur - N * 5
   let param = H > 0 ? Object.assign({}, { H }) : {}
-  param = Q > 0 ? Object.assign({}, { Q }, param) : Object.assign({}, param)
-  param = D > 0 ? Object.assign({}, { D }, param) : Object.assign({}, param)
-  param = N > 0 ? Object.assign({}, { N }, param) : Object.assign({}, param)
-  param = P > 0 ? Object.assign({}, { P }, param) : Object.assign({}, param)
+  param = checkAndWrap(param, Q, `Q`)
+  param = checkAndWrap(param, D, `D`)
+  param = checkAndWrap(param, N, `N`)
+  param = checkAndWrap(param, P, `P`)
   return param
+}
+
+function checkAndWrap(param, val, key) {
+  return val > 0
+    ? Object.assign({}, { [key]: val }, param)
+    : Object.assign({}, param)
 }
