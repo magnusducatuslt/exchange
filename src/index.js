@@ -7,14 +7,13 @@ module.exports = function makeExchange(currency) {
         "You are rich, my friend! We don't have so much coins for exchange",
     }
   let cur = currency
-  const H = Math.floor(cur / 50) > 0 ? Math.floor(cur / 50) : 0
+  const H = calc(cur, 50)
   cur -= H * 50
-  const Q = Math.floor(cur / 25) > 0 ? Math.floor(cur / 25) : 0
-  console.log(Q)
+  const Q = calc(cur, 25)
   cur -= Q * 25
-  const D = Math.floor(cur / 10) > 0 ? Math.floor(cur / 10) : 0
+  const D = calc(cur, 10)
   cur -= D * 10
-  const N = Math.floor(cur / 5) > 0 ? Math.floor(cur / 5) : 0
+  const N = calc(cur, 5)
   const P = cur - N * 5
   let param = H > 0 ? Object.assign({}, { H }) : {}
   param = checkAndWrap(param, Q, `Q`)
@@ -23,7 +22,9 @@ module.exports = function makeExchange(currency) {
   param = checkAndWrap(param, P, `P`)
   return param
 }
-
+function calc(cur, number) {
+  return Math.floor(cur / number) > 0 ? Math.floor(cur / number) : 0
+}
 function checkAndWrap(param, val, key) {
   return val > 0
     ? Object.assign({}, { [key]: val }, param)
