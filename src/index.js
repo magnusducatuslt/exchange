@@ -1,6 +1,5 @@
 // PLEASE DON'T change function name
 module.exports = function makeExchange(currency) {
-  // function makeExchange(currency) {
   if (currency === 0) return {}
   if (currency >= 10000)
     return {
@@ -24,4 +23,3 @@ module.exports = function makeExchange(currency) {
   param = P > 0 ? Object.assign({}, { P }, param) : Object.assign({}, param)
   return param
 }
-//shit code
